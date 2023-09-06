@@ -1,7 +1,9 @@
 //PAGE ELEMENTS
 
 let operator 
-let displayValue //also the "first" number
+let displayValue
+let firstNumber
+let secondNumber
 
 const topDisplay = document.querySelector('.display-top')
 const bottomDisplay = document.querySelector('.display-bottom')
@@ -22,21 +24,20 @@ buttonsNumber.forEach((button) => {
 
 buttonsOperator.forEach((button) => {
     button.addEventListener('click', (e) => {
+        firstNumber = bottomDisplay.textContent
         moveFirstNumberUp(e.target.textContent)
         clearBottomDisplay()
     })
 })
 
 equalsButton.addEventListener('click', () => {
-    const secondNumber = bottomDisplay.textContent
-    const result = operate(operator,displayValue,secondNumber)
+    secondNumber = bottomDisplay.textContent
+    console.log(secondNumber)
+    const result = operate(operator,firstNumber,secondNumber)
     clearBottomDisplay()
     clearTopDisplay()
     writeOnDisplay(result)
     displayValue = result
-    console.log(displayValue)
-    console.log(secondNumber)
-    console.log(result)
 })
 
 clearButton.addEventListener('click', () => {clearAll()})
@@ -67,47 +68,41 @@ function clearBottomDisplay() {
 }
 
 function moveFirstNumberUp(oper) {
-    topDisplay.textContent = displayValue + " " + oper
+    topDisplay.textContent = bottomDisplay.textContent + " " + oper
     operator = oper
 }
 
 function writeOnDisplay(string) {
     bottomDisplay.textContent += string
-    displayValue = bottomDisplay.textContent
 }
 
 function add(a,b) {
-    a = parseFloat(a)
-    b = parseFloat(b)
     return (a+b)
 }
 
 function substract(a,b) {
-    a = parseFloat(a)
-    b = parseFloat(b)
     return (a-b)
 }
 
 function multiply(a,b) {
-    a = parseFloat(a)
-    b = parseFloat(b)
     return (a*b)
 }
 
 function divide(a,b) {
-    a = parseFloat(a)
-    b = parseFloat(b)
     return (a / b)
 }
 
 function operate(operator, num1, num2) {
+    num1 = parseFloat(num1)
+    num2 = parseFloat(num2)
+
     if (operator === '+') {
         return add(num1,num2)
     } else if (operator === '-') {
-        return substract(a,b)
+        return substract(num1,num2)
     } else if (operator === '*') {
-        return multiply(a,b)
+        return multiply(num1,num2)
     } else if (operator === '/') {
-        return divide(a,b)
+        return divide(num1,num2)
     }
 }
