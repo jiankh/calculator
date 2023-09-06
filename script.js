@@ -32,6 +32,11 @@ buttonsOperator.forEach((button) => {
 
 equalsButton.addEventListener('click', () => {
     secondNumber = bottomDisplay.textContent
+
+    if (!secondNumber) {
+        return //return early if there is no second number to use operate with.
+    }
+
     console.log(secondNumber)
     const result = operate(operator,firstNumber,secondNumber)
     clearBottomDisplay()
@@ -103,6 +108,9 @@ function operate(operator, num1, num2) {
     } else if (operator === '*') {
         return multiply(num1,num2)
     } else if (operator === '/') {
+        if (num2 === 0) {
+            return "Error: Division by zero!"
+        } else {
         return divide(num1,num2)
-    }
+    }}
 }
